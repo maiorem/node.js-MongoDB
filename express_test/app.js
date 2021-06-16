@@ -46,7 +46,6 @@ app.get('/posts', (req, res) => {
     ];
     res.json(dataFromDB);
 });
-
 //파라미터를 url로 받아 상세페이지 표시
 app.get('/posts/:id', (req, res) => {
    if (req.params.id==='1') {
@@ -77,31 +76,18 @@ app.get('/posts/:id', (req, res) => {
        res.json('error....')
    }
 });
-
 app.post('/posts', (req, res) => {
     const fromFrontend=req.body;
     res.json(fromFrontend);
 });
-
 app.put('/posts', (req,res)=>{
     const fromFrontend=req.body;
     res.json(fromFrontend);
 });
-
 app.delete('/posts/:id', (req,res)=>{
     res.json(req.params.id+"번 글 삭제");
 });
 
-
-
-
-app.get('/users', (req, res)=>{
-    res.redirect('/users/1');
-});
-
-app.get('/users/1', (req, res)=>{
-   res.send('1번 글 상세보기');
-});
 
 //모든 경로(express는 순서대로 실행하므로 제일 아래에 있어야 위의 라우트를 제외하고 받음)
 app.get('*', (req, res)=>{
