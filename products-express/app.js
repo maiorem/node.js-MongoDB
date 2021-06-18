@@ -1,28 +1,24 @@
-//미들웨어가 셋팅되는 곳
-
 const createError = require('http-errors');
 const express = require('express');
-const path = require('path');
-// const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const mongoose = require('mongoose');
 
-//경로 정의
 const indexRouter = require('./routes/index');
 const productsRouter = require('./routes/products');
 
 const app = express();
 
-// // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
+const dbUrl = 'mongodb+srv://admin:1234qwer@cluster0.9lxgd.mongodb.net/ktds?retryWrites=true&w=majority'
+mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true})
+    .then(
+        () => { console.log('connection ok..') },
+        err => { console.log(err) }
+    );
 
 app.use(logger('dev'));
 app.use(express.json());
-// app.use(express.urlencoded({ extended: false }));
-// app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter); //라우터를 별도의 파일로 분리하여 사용
+app.use('/', indexRouter);
 app.use('/products', productsRouter);
 
 // catch 404 and forward to error handler
